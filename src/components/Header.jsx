@@ -68,6 +68,8 @@ export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
     }
 
     const handleClear = (type) => {
+        const res = confirm("Are you sure you want to clear?")
+        if (!res) return;
         if (type == "most") {
             dispatch(clearMostVisited())
         }
@@ -82,7 +84,7 @@ export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
             <div className="font-secondary text-xs flex items-center gap-1">{battery.is_charging && <BsLightningCharge />} {battery.level}%</div>
             <CgMenuRight onClick={() => setIsMenuOpen(true)} size={20} className="cursor-pointer" />
         </div>
-        <ul onClick={() => setIsMenuOpen(true)} className={`fixed flex text-nowrap justify-center flex-col gap-1 bg-[#333]/20 backdrop-blur-sm overflow-hidden rounded right-1 top-1 ease-linear duration-200 ${isMenuOpen ? "w-[200px] p-2" : "w-0 py-2 px-0"}`}>
+        <ul onClick={() => setIsMenuOpen(true)} className={`fixed flex z-1 text-nowrap justify-center flex-col gap-1 bg-[#333]/20 backdrop-blur-sm overflow-hidden rounded right-1 top-1 ease-linear duration-200 ${isMenuOpen ? "w-[200px] p-2" : "w-0 py-2 px-0"}`}>
             <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded">
                 {
                     email ? <div onClick={handleLogout} className="flex items-center gap-2 w-full">

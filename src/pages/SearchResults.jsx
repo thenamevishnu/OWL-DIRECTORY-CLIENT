@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router";
 import { toaster } from "../Lib/alert";
 import { api } from "../axios";
 import { Loading } from "../components/Loading";
+import { SearchSuggestions } from "../components/SearchSuggestions";
 
 const limit = 20
 
@@ -45,8 +46,11 @@ export const SearchResults = () => {
             <div className="col-span-12 sm:col-span-11 md:col-span-10 lg:col-span-9 xl:col-span-8 2xl:col-span-7">
                 <div>
                     <form className="w-full" onSubmit={(e) => { e.preventDefault(); redirect(`/search?q=${encodeURI(query)}&page=1`) }}>
-                        <div className="w-full flex items-center bg-tertiary rounded-md">
-                            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none"/>
+                        <div className="w-full relative flex items-center bg-tertiary rounded-md">
+                            <section className="absolute top-10.5 left-0 min-w-1/2 max-w-full">
+                                <SearchSuggestions results={results} query={query} onSelect={(item) => setQuery(item.query)}/>
+                            </section>
+                            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none" />
                             <button className="p-2 text-dim cursor-pointer"><FaSearch /></button>
                         </div>
                     </form>

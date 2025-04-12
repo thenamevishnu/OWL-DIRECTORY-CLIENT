@@ -21,12 +21,12 @@ const siteSlice = createSlice({
             }
         },
         addRecentlyVisited: (state, action) => {
-            const index = state.recently_visited.findIndex(item => item.url == action.payload.url)
-            if (index == -1) {
+            const item = state.recently_visited.find(item => item.url == action.payload.url)
+            if (!item) {
                 state.recently_visited = [action.payload, ...state.recently_visited]
             } else {
                 state.recently_visited = state.recently_visited.filter(item => item.url != action.payload.url)
-                state.recently_visited = [action.payload, ...state.recently_visited]
+                state.recently_visited = [item, ...state.recently_visited]
             }
         },
         removeFromMostVisited: (state, action) => {

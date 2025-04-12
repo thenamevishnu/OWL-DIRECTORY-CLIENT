@@ -6,11 +6,13 @@ import { Header } from "../components/Header"
 import { useNavigate } from "react-router"
 import { useSelector } from "react-redux"
 import { SitesList } from "../components/SitesList"
+import { SearchResults } from "./SearchResults"
+import { SearchSuggestions } from "../components/SearchSuggestions"
 
 const FixedBar = () => {
-    return <div className="flex items-center gap-2 fixed bottom-3 right-3">
-        <button className="flex gap-1 items-center text-sm border-[1px] p-1 px-2 rounded"><LuSlidersHorizontal />Customize</button>
-        <button className="p-1 px-2 border-[1px] rounded text-xl"><MdOutlineFeedback/></button>
+    return <div className="flex z-[1] items-center gap-2 fixed bottom-3 right-3">
+        <button className="flex gap-1 bg-dark items-center text-sm border-[1px] p-1 px-2 rounded"><LuSlidersHorizontal />Customize</button>
+        <button className="p-1 px-2 border-[1px] bg-dark rounded text-xl"><MdOutlineFeedback/></button>
     </div>
 }
 
@@ -35,13 +37,16 @@ export const LandingPage = () => {
     return <div className="flex flex-col items-center p-2" onClickCapture={() => setIsMenuOpen(false)}>
         <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
         <FixedBar />
-        <div className="w-full max-w-[700px] p-2 sm:p-10">
+        <div className="w-full pb-10 max-w-[700px] p-2 sm:p-10">
             <div className="flex flex-col items-center mb-5 w-full">
                 <img src="./owl.png" alt="owl" className="aspect-square w-[160px]" />
-                <h1 className="text-3xl tracking-wide font-secondary font-medium">OWL DIRECTORY</h1>
+                <h1 className="text-xl xxs:text-3xl tracking-wide font-secondary font-medium">OWL DIRECTORY</h1>
             </div>
             <form className="w-full mb-8" onSubmit={handleSearch}>
-                <div className="w-full flex items-center bg-tertiary rounded-md">
+                <div className="w-full flex items-center bg-tertiary rounded-md relative">
+                    <section className="absolute top-10.5 left-0 min-w-1/2 max-w-full">
+                        <SearchSuggestions query={query} onSelect={(item) => setQuery(item.query)}/>
+                    </section>
                     <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none"/>
                     <button className="p-2 text-dim cursor-pointer"><FaSearch/></button>
                 </div>
@@ -52,7 +57,7 @@ export const LandingPage = () => {
                 isListOpen={isListOpen.most_visited}
                 setListOpen={setListOpen}
                 sites={most_visited}
-                title={"Most Visited Sites"}
+                title={"Most Visited"}
             />
             <SitesList
                 icon={<MdAdsClick className="text-yellow-400" />}
@@ -60,7 +65,7 @@ export const LandingPage = () => {
                 isListOpen={isListOpen.recently_visited}
                 setListOpen={setListOpen}
                 sites={recently_visited}
-                title={"Recently Visited Sites"}
+                title={"Recently Visited"}
             />
         </div>
     </div>

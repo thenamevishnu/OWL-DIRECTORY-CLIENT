@@ -21,7 +21,7 @@ export const ResultPreview = ({ result }) => {
                     <img src={result.icon} alt={result.host_name} className="aspect-square w-[30px] bg-tertiary rounded-full p-1" />
                 </div>
                 <div className="flex text-xs flex-col">
-                    <p>{result.host_name}</p>
+                    <p>{result.title}</p>
                     <p>{result.origin}</p>
                 </div>
             </div>
