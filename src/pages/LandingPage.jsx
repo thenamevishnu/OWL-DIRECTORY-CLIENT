@@ -29,7 +29,7 @@ export const LandingPage = () => {
         e.preventDefault()
         const searchQuery = encodeURI(query)
         setQuery("")
-        return redirect(`/search?q=${searchQuery}`)
+        return redirect(`/search?q=${searchQuery}&page=1`)
     }
 
     return <div className="flex flex-col items-center p-2" onClickCapture={() => setIsMenuOpen(false)}>
