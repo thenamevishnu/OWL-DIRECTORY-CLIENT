@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme{
+    --color-dark: #222;
+    --color-light: #eee;
+    --color-dim: color-mix(in oklab,  #ddd, transparent);
+    --color-secondary: #282828;
+    --color-tertiary: #333333;
+    --font-secondary: "Tomorrow", sans-serif;
+}
+
+body{
+    font-family: "Syne", sans-serif;
+    background-color: #222;
+    color: #eee;
+}
+
+.scroll-bar::-webkit-scrollbar{
+    height: 5px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--color-dim);
+}
