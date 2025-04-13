@@ -49,8 +49,10 @@ export const AddWebsite = () => {
         }
         try {
             const { data } = await api.post("/url/add", siteData)
+            setSiteData(null)
             return toaster.success(data.message)
         } catch (error) {
+            setSiteData(null)
             return toaster.error(error.response?.data.message || "Error while adding website. Please try again.")
         }
     }

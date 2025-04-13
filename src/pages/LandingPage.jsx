@@ -8,6 +8,7 @@ import { useSelector } from "react-redux"
 import { SitesList } from "../components/SitesList"
 import { SearchResults } from "./SearchResults"
 import { SearchSuggestions } from "../components/SearchSuggestions"
+import { toaster } from "../Lib/alert"
 
 const FixedBar = () => {
     return <div className="flex z-[1] items-center gap-2 fixed bottom-3 right-3">
@@ -29,6 +30,7 @@ export const LandingPage = () => {
 
     const handleSearch = (e) => {
         e.preventDefault()
+        if(query.trim() == "") return toaster.error("Please enter a search query.")
         const searchQuery = encodeURI(query)
         setQuery("")
         return redirect(`/search?q=${searchQuery}&page=1`)

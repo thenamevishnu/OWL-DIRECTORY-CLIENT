@@ -1,15 +1,22 @@
 import { useSelector } from "react-redux"
-import { Navigate, useLocation, useNavigate } from "react-router"
-import { toaster } from "./Lib/alert"
 import { Unauthorized } from "./pages/Unauthorized"
+import { cookie } from "./Lib/cookie"
+import { jwtDecode } from "jwt-decode"
 
 export const ProtectedRoute = ({ children }) => {
-    const { state } = useLocation()
     const { email } = useSelector(state => state.user)
-    const redirect = useNavigate()
+    const token = cookie.get()
 
-    if (!email) {
+    if (!email || !token) {
         return <Unauthorized />
     }
-    return children
+    try {
+        const decoded = jwtDecode(token)
+        if (!decoded) {
+            return <Unauthorized />
+        }
+        return children
+    } catch (_err) {
+        return <Unauthorized />
+    }
 }

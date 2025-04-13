@@ -12,6 +12,7 @@ import { BsGlobeAmericas } from "react-icons/bs";
 import { api } from "../axios";
 import { FaStar } from "react-icons/fa";
 import { clearMostVisited, clearRecentlyVisited } from "../Redux/slices/sites.slice";
+import { cookie } from "../Lib/cookie";
 
 export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
 
@@ -52,11 +53,16 @@ export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
                         Authorization: `Bearer ${access_token}`
                     }
                 })
-                await api.post("/auth", { email: data.email, picture: data.picture, name: data.name })
-                dispatch(setUser({...data}))
+                const { data: res, status } = await api.post("/auth", { email: data.email, picture: data.picture, name: data.name })
+                if(status !== 200) return toaster.error(res.message)
+                dispatch(setUser({ ...data }))
+                cookie.set(res.token)
             } catch (error) {
                 return toaster.error(error.response?.data.message)
             }
+        },
+        onError: (_error) => {
+            return toaster.error("Error while logging in. Please try again.")
         }
     })
 

@@ -17,11 +17,11 @@ export const ResultPreview = ({ result }) => {
     return <div className="bg-secondary rounded p-2">
         <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
-                <div>
+                <div className="shrink-0">
                     <img src={result.icon} alt={result.host_name} className="aspect-square w-[30px] bg-tertiary rounded-full p-1" />
                 </div>
                 <div className="flex text-xs flex-col">
-                    <p>{result.title}</p>
+                    <p>{result.host_name}</p>
                     <p>{result.origin}</p>
                 </div>
             </div>
