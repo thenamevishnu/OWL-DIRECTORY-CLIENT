@@ -62,7 +62,7 @@ export const SearchResults = () => {
                 <div>
                     <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
                         <div className="w-full relative flex items-center bg-tertiary rounded-md">
-                            <section className="absolute top-10.5 left-0 min-w-1/2 max-w-full">
+                            <section className="absolute z-10 top-10.5 left-0 min-w-1/2 max-w-full">
                                 <SearchSuggestions results={results} query={query} onSelect={(item) => setQuery(item.query)}/>
                             </section>
                             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none" />
@@ -94,8 +94,8 @@ export const SearchResults = () => {
                 </div>
                 {
                     <div className="flex justify-center gap-3 mt-4">
-                        {!isLoading && results?.is_previous_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage - 1}`)} className="p-2 bg-secondary px-4 cursor-pointer rounded font-bold"><GrPrevious /></button>}
-                        {!isLoading && results?.is_next_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage + 1}`)} className="p-2 bg-secondary px-4 cursor-pointer rounded font-bold"><GrNext /></button>}
+                        {!isLoading && results?.is_previous_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage - 1}`)} className="p-2 bg-secondary/20 backdrop-blur-xl px-4 cursor-pointer rounded font-bold"><GrPrevious /></button>}
+                        {!isLoading && results?.is_next_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage + 1}`)} className="p-2 bg-secondary/20 backdrop-blur-xl px-4 cursor-pointer rounded font-bold"><GrNext /></button>}
                     </div>
                 }
             </div>

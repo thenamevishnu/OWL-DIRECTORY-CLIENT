@@ -28,13 +28,17 @@ export const SearchSuggestions = ({query, onSelect, results}) => {
     }, [results])
 
     useEffect(() => {
-        getSuggestion()
+        if (query?.trim()?.length > 0) {
+            getSuggestion()
+        } else {
+            setSuggestions([])
+        }
     }, [query])
 
-    return <div className={`w-full transition-all max-h-48 overflow-y-scroll scroll-bar px-1 ${suggestions.length > 0 ? "py-1" : "p-0"} bg-secondary rounded`}>
+    return <div className={`w-full backdrop-blur-xl bg-secondary/10 transition-all max-h-48 overflow-y-scroll scroll-bar px-1 ${suggestions.length > 0 ? "py-1" : "p-0"} rounded`}>
         {
             suggestions.map(suggestion => {
-                return <p onClick={() => { setSuggestions([]); onSelect(suggestion);}} className="cursor-pointer hover:bg-tertiary p-1 rounded" key={suggestion._id}>{suggestion.query}</p>
+                return <p onClick={() => { setSuggestions([]); onSelect(suggestion);}} className="cursor-pointer hover:bg-tertiary/40 p-1 rounded" key={suggestion._id}>{suggestion.query}</p>
             })
         }
     </div>

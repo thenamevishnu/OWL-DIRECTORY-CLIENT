@@ -1,19 +1,18 @@
 import { useState } from "react"
-import { FaChevronUp, FaPlus, FaSearch, FaStar } from "react-icons/fa"
+import { FaSearch, FaStar } from "react-icons/fa"
 import { LuSlidersHorizontal } from "react-icons/lu"
 import { MdAdsClick, MdOutlineFeedback } from "react-icons/md"
 import { Header } from "../components/Header"
 import { useNavigate } from "react-router"
 import { useSelector } from "react-redux"
 import { SitesList } from "../components/SitesList"
-import { SearchResults } from "./SearchResults"
 import { SearchSuggestions } from "../components/SearchSuggestions"
 import { toaster } from "../Lib/alert"
 
 const FixedBar = () => {
     return <div className="flex z-[1] items-center gap-2 fixed bottom-3 right-3">
-        <button className="flex gap-1 bg-dark items-center text-sm border-[1px] p-1 px-2 rounded"><LuSlidersHorizontal />Customize</button>
-        <button className="p-1 px-2 border-[1px] bg-dark rounded text-xl"><MdOutlineFeedback/></button>
+        <button className="flex gap-1 cursor-pointer bg-secondary/20 backdrop-blur-xl items-center text-sm p-1 px-2 rounded"><LuSlidersHorizontal />Customize</button>
+        <button className="p-1 px-2 cursor-pointer bg-secondary/20 backdrop-blur-xl rounded text-xl"><MdOutlineFeedback/></button>
     </div>
 }
 
@@ -46,7 +45,7 @@ export const LandingPage = () => {
             </div>
             <form className="w-full mb-8" onSubmit={handleSearch}>
                 <div className="w-full flex items-center bg-tertiary rounded-md relative">
-                    <section className="absolute top-10.5 left-0 min-w-1/2 max-w-full">
+                    <section className="absolute z-10 top-10.5 left-0 min-w-1/2 max-w-full">
                         <SearchSuggestions query={query} onSelect={(item) => setQuery(item.query)}/>
                     </section>
                     <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none"/>

@@ -14,14 +14,14 @@ export const ResultPreview = ({ result }) => {
         }, 300);
     }
 
-    return <div className="bg-secondary rounded p-2">
+    return <div className="bg-secondary/20 backdrop-blur-xl rounded p-2">
         <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
-                <div className="shrink-0">
-                    <img src={result.icon} alt={result.host_name} className="aspect-square w-[30px] bg-tertiary rounded-full p-1" />
+                <div className="shrink-0 w-[35px] h-[35px]">
+                    <img src={result.icon} alt={result.host_name} className="aspect-square w-full bg-tertiary rounded-full p-1" />
                 </div>
                 <div className="flex text-xs flex-col">
-                    <p>{result.host_name}</p>
+                    <p>{result.host_name?.replace(result?.host_name?.[0], result?.host_name?.[0].toUpperCase())}</p>
                     <p>{result.origin}</p>
                 </div>
             </div>

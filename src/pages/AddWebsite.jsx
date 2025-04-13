@@ -32,7 +32,13 @@ export const AddWebsite = () => {
             })
             data.origin = origin.origin
             data.host_name = origin.host_name
-            data.url = query
+            if (query.split("").reverse()[0] == "/") {
+                const qr = query.split("")
+                qr.pop()
+                data.url = qr.join("")
+            } else {
+                data.url = query
+            }
             data.added = email
             setSiteData(data)
             setFetching(false)
