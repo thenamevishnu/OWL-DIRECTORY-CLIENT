@@ -14,7 +14,7 @@ import { FaStar } from "react-icons/fa";
 import { clearMostVisited, clearRecentlyVisited } from "../Redux/slices/sites.slice";
 import { cookie } from "../Lib/cookie";
 
-export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
+export const Header = ({ isMenuOpen, setIsMenuOpen, setIsOpen, isOpen }) => {
 
     const { pathname } = useLocation()
     const { email, name, picture } = useSelector(state => state.user)
@@ -55,7 +55,7 @@ export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
                 })
                 const { data: res, status } = await api.post("/auth", { email: data.email, picture: data.picture, name: data.name })
                 if(status !== 200) return toaster.error(res.message)
-                dispatch(setUser({ ...data }))
+                dispatch(setUser({ ...data, meta_code: res.meta_code }))
                 cookie.set(res.token)
             } catch (error) {
                 return toaster.error(error.response?.data.message)
@@ -85,7 +85,12 @@ export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
     }
 
     return <div className="flex justify-between items-center w-full" >
-        <MdInfoOutline size={20} className="cursor-pointer" />    
+        <div className="relative group">
+            <MdInfoOutline size={20} className="cursor-pointer" onClick={() => setIsOpen(isOpen => ({...isOpen, info: !isOpen.info}))} />
+            <div className={`fixed duration-300  overflow-hidden top-6 left-6 max-w-[400px] ${isOpen.info ? "w-full h-96 pe-12" : "h-0 w-0"} z-[10]`}>
+                <div className="bg-secondary/20 backdrop-blur-xl rounded p-2 text-xs"><p><span className="font-bold">Owl Directory</span> is a free web app that lets you list and showcase your websites with ease. Whether you're a developer, business owner, or blogger, you can add your site to our growing directory and reach a wider audience—all at no cost. Simple, fast, and open to everyone!</p></div>
+            </div>
+        </div>   
         <div className="flex items-center gap-5">
             <div className="font-secondary text-xs flex items-center gap-1">{battery.is_charging && <BsLightningCharge />} {battery.level}%</div>
             <CgMenuRight onClick={() => setIsMenuOpen(true)} size={20} className="cursor-pointer" />
@@ -102,12 +107,9 @@ export const Header = ({ isMenuOpen, setIsMenuOpen }) => {
                     </div>
                 }
             </li> 
-            <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded"><MdOutlineSettings /> Settings</li> 
-            <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded"><MdOutlineBookmark /> Saved Pages</li> 
             <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded" onClick={() => redirect("/website/add", { state: pathname })}><BsGlobeAmericas /> Add Website</li>
             <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded" onClick={() => handleClear("most")}><FaStar /> Clear Most Visited</li>
             <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded" onClick={() => handleClear("recent")}><MdAdsClick /> Clear Recently</li>
-            <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded" onClick={() => handleClear("recent")}><MdHistory /> History</li>
         </ul>
     </div>
 }

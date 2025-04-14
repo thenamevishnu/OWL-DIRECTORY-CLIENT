@@ -20,6 +20,7 @@ export const LandingPage = () => {
 
     const { most_visited, recently_visited } = useSelector(state => state.sites)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState({ info: false })
     const [isListOpen, setListOpen] = useState({
         most_visited: false,
         recently_visited: false
@@ -35,17 +36,17 @@ export const LandingPage = () => {
         return redirect(`/search?q=${searchQuery}&page=1`)
     }
 
-    return <div className="flex flex-col items-center p-2" onClickCapture={() => setIsMenuOpen(false)}>
-        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
+    return <div className="flex flex-col items-center p-2" onClickCapture={() => { setIsMenuOpen(false);  setIsOpen(isOpen => ({...isOpen, info: false}))}}>
+        <Header isMenuOpen={isMenuOpen} setIsOpen={setIsOpen} isOpen={isOpen} setIsMenuOpen={setIsMenuOpen}/>
         <FixedBar />
-        <div className="w-full pb-10 max-w-[700px] p-2 sm:p-10">
+        <div className="w-full pb-10 max-w-[700px] sm:p-10">
             <div className="flex flex-col items-center mb-5 w-full">
                 <img src="./owl.png" alt="owl" className="aspect-square w-[160px]" />
                 <h1 className="text-xl xxs:text-3xl tracking-wide font-secondary font-medium">OWL DIRECTORY</h1>
             </div>
             <form className="w-full mb-8" onSubmit={handleSearch}>
-                <div className="w-full flex items-center bg-tertiary rounded-md relative">
-                    <section className="absolute z-10 top-10.5 left-0 min-w-1/2 max-w-full">
+                <div className="w-full flex items-center bg-tertiary/50 rounded-md relative">
+                    <section className="absolute z-10 top-11 left-0 min-w-1/2 max-w-full">
                         <SearchSuggestions query={query} onSelect={(item) => setQuery(item.query)}/>
                     </section>
                     <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none"/>

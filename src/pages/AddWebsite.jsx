@@ -9,7 +9,7 @@ import { useSelector } from "react-redux"
 
 export const AddWebsite = () => {
 
-    const { email } = useSelector(state => state.user)
+    const { email, meta_code } = useSelector(state => state.user)
     const [query, setQuery] = useState("")
     const [siteData, setSiteData] = useState(null)
     const [isFetching, setFetching] = useState(false)
@@ -30,6 +30,10 @@ export const AddWebsite = () => {
                     url: query
                 }
             })
+            if (data.owl != meta_code) {
+                setFetching(false)
+                return toaster.error("Unable to add the website. Please ensure ownership or correct meta code addition.")
+            }
             data.origin = origin.origin
             data.host_name = origin.host_name
             if (query.split("").reverse()[0] == "/") {
@@ -63,11 +67,12 @@ export const AddWebsite = () => {
         }
     }
 
-    return <div className="flex justify-center">
+    return <div className="flex justify-center p-2 sm:p-10">
         <div className="w-full max-w-[700px]">
-            <form className="w-full mt-10" onSubmit={handleAddSite}>
-                <div className="w-full flex items-center bg-tertiary rounded-md">
-                    <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none"/>
+            <h1 className="text-xl xxs:text-3xl tracking-wide font-secondary font-bold text-center">ADD WEBSITE</h1>
+            <form className="w-full mt-5" onSubmit={handleAddSite}>
+                <div className="w-full flex items-center bg-secondary/50 rounded-md">
+                    <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Enter the url for adding..." className="w-full p-2 outline-none"/>
                     {!isFetching && <button className="p-2 text-dim cursor-pointer"><CgAdd /></button>}
                     {isFetching && <div className="w-5 h-5 mr-2 border-light border-t-transparent border-b-transparent rounded-full border-2 animate-spin"></div>}
                 </div>
@@ -83,6 +88,11 @@ export const AddWebsite = () => {
                     <button onClick={() => setSiteData(null)} className="flex w-full justify-center cursor-pointer items-center gap-1 border border-dim p-1 px-2 rounded"><MdRemoveCircle /> Remove</button>
                 </div>
             }
+            <div className="mt-8 p-2 bg-secondary/40 rounded backdrop-blur-xl">
+                <p>Before adding a website, make sure you added the meta tags correctly.</p>
+                <p className="my-3">Place this meta tag in your head section:</p>
+                <p className="text-nowrap font-mono overflow-scroll w-full">{`<meta name="owl-directory" content='${meta_code}'>`}</p>
+            </div>
         </div>
     </div>
 }

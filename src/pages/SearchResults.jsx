@@ -61,8 +61,8 @@ export const SearchResults = () => {
             <div className="col-span-12 sm:col-span-11 md:col-span-10 lg:col-span-9 xl:col-span-8 2xl:col-span-7">
                 <div>
                     <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
-                        <div className="w-full relative flex items-center bg-tertiary rounded-md">
-                            <section className="absolute z-10 top-10.5 left-0 min-w-1/2 max-w-full">
+                        <div className="w-full relative flex items-center bg-tertiary/50 rounded-md">
+                            <section className="absolute z-10 top-11 left-0 w-full">
                                 <SearchSuggestions results={results} query={query} onSelect={(item) => setQuery(item.query)}/>
                             </section>
                             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none" />

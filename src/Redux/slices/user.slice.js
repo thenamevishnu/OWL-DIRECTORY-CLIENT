@@ -5,18 +5,21 @@ const userSlice = createSlice({
     initialState: {
         email: "",
         picture: null,
-        name: ""
+        name: "",
+        meta_code: ""
     },
     reducers: {
         setUser: (state, action) => {
             state.email = action.payload.email
             state.picture = action.payload.picture
             state.name = action.payload.name
+            state.meta_code = action.payload.meta_code
         },
         clearUser: (state) => {
             state.email = ""
             state.picture = null
             state.name = ""
+            state.meta_code = ""
         }
     }
 })

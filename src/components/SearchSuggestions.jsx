@@ -35,7 +35,7 @@ export const SearchSuggestions = ({query, onSelect, results}) => {
         }
     }, [query])
 
-    return <div className={`w-full backdrop-blur-xl bg-secondary/10 transition-all max-h-48 overflow-y-scroll scroll-bar px-1 ${suggestions.length > 0 ? "py-1" : "p-0"} rounded`}>
+    return <div className={`w-full backdrop-blur-sm bg-secondary/10 transition-all max-h-48 overflow-y-scroll scroll-bar px-1 ${suggestions.length > 0 ? "py-1" : "p-0"} rounded`}>
         {
             suggestions.map(suggestion => {
                 return <p onClick={() => { setSuggestions([]); onSelect(suggestion);}} className="cursor-pointer hover:bg-tertiary/40 p-1 rounded" key={suggestion._id}>{suggestion.query}</p>

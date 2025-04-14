@@ -1,6 +1,7 @@
 import { IoEllipsisHorizontal } from "react-icons/io5"
 import { useDispatch } from "react-redux"
 import { addMostVisited, addRecentlyVisited } from "../Redux/slices/sites.slice"
+import { toaster } from "../Lib/alert"
 
 export const ResultPreview = ({ result }) => {
 
@@ -26,7 +27,7 @@ export const ResultPreview = ({ result }) => {
                 </div>
             </div>
             <div>
-                <IoEllipsisHorizontal />
+                <IoEllipsisHorizontal className="cursor-pointer" onClick={() => toaster.error("Not implemented yet")}/>
             </div>
         </div>
         <div className="mt-1">
