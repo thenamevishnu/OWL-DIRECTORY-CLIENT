@@ -55,8 +55,8 @@ const FixedBar = () => {
                     <h3>Backgrounds:</h3>
                     <div className="flex gap-2 flex-wrap mt-2">
                         {
-                            backgroundImages.map(background => <div onClick={() => { dispatch(setTheme({ background: "../../src/assets/" + background })) }} key={background} className="w-30 rounded cursor-pointer">
-                                <img src={"../../src/assets/"+background} alt="bg" className="object-fill h-full w-full aspect-video"/>
+                            backgroundImages.map(background => <div onClick={() => { dispatch(setTheme({ background: "../" + background })) }} key={background} className="w-30 rounded cursor-pointer">
+                                <img src={"../"+background} alt="bg" className="object-fill h-full w-full aspect-video"/>
                             </div>)
                         }
                     </div>
