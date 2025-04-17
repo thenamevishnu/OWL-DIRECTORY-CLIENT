@@ -4,7 +4,7 @@ const themeSlice = createSlice({
     name: "theme",
     initialState: {
         color: "#eee",
-        background: "url(../../src/bg-default.jpg)",
+        background: "url(../bg-default.jpg)",
         link_color: "#ADC2FC"
     },
     reducers: {
