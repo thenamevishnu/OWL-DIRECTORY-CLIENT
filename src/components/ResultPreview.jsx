@@ -1,11 +1,12 @@
 import { IoEllipsisHorizontal } from "react-icons/io5"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addMostVisited, addRecentlyVisited } from "../Redux/slices/sites.slice"
 import { toaster } from "../Lib/alert"
 
 export const ResultPreview = ({ result }) => {
 
     const dispatch = useDispatch()
+    const theme = useSelector(state => state.theme)
 
     const handleClick = () => {
         dispatch(addMostVisited(result))
@@ -31,7 +32,7 @@ export const ResultPreview = ({ result }) => {
             </div>
         </div>
         <div className="mt-1">
-            <h2 className="text-xl cursor-pointer text-[#ADC2FC]" onClick={handleClick}>{result.title}</h2>
+            <h2 className="text-xl cursor-pointer" onClick={handleClick} style={{ color: theme.link_color }}>{result.title}</h2>
             <p>{result.description}</p>
         </div>
     </div>

@@ -8,12 +8,14 @@ import { api } from "../axios";
 import { Loading } from "../components/Loading";
 import { SearchSuggestions } from "../components/SearchSuggestions";
 import { MdTimer } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const limit = 20
 
 export const SearchResults = () => {
 
     const location = useLocation()
+    const theme = useSelector(state => state.theme)
     const queryParams = new URLSearchParams(location.search)
     const [query, setQuery] = useState(queryParams.get("q") || "")
     const [results, setResults] = useState({ time: 0, results: [], total_results: 0, is_previous_available: false, is_next_available: false })
@@ -61,7 +63,7 @@ export const SearchResults = () => {
             <div className="col-span-12 sm:col-span-11 md:col-span-10 lg:col-span-9 xl:col-span-8 2xl:col-span-7">
                 <div>
                     <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
-                        <div className="w-full relative flex items-center bg-tertiary/50 rounded-md">
+                        <div className="w-full relative flex items-center bg-tertiary rounded-md">
                             <section className="absolute z-10 top-11 left-0 w-full">
                                 <SearchSuggestions results={results} query={query} onSelect={(item) => setQuery(item.query)}/>
                             </section>

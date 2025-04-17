@@ -1,4 +1,4 @@
-import { MdAdsClick, MdHistory, MdInfoOutline, MdOutlineBookmark, MdOutlineLogin, MdOutlineSettings } from "react-icons/md"
+import { MdAdsClick, MdInfoOutline, MdOutlineLogin } from "react-icons/md"
 import { CgMenuRight } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import { BsLightningCharge } from "react-icons/bs";
