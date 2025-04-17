@@ -23,9 +23,9 @@ const FixedBar = () => {
 
 
     return <div className="flex z-[11] items-center gap-2 fixed bottom-3 right-3">
-        <section className={`${isOpen.customize ? "h-[calc(100%-0.5rem)]  py-2":"h-0"} duration-200 ease-linear max-w-[300px] overflow-y-scroll rounded backdrop-blur-xl bg-secondary/20 fixed bottom-1 right-1`}>
+        <section className={`${isOpen.customize ? "h-[calc(100%-0.5rem)]  py-2":"h-0"} scroll-none duration-200 ease-linear max-w-[300px] overflow-y-scroll rounded backdrop-blur-xl bg-secondary/20 fixed bottom-1 right-1`}>
             <div className="flex p-2 flex-col gap-4 pb-12 rounded">
-                <div className="sticky top-0">
+                <div className="sticky -top-10">
                     <h3>Preview:</h3>
                     <div className="w-full relative h-44 rounded mt-2" >
                         <img src={theme.background.replace("url(", "").replace(")", "")} alt="bg" className="object-fill rounded aspect-video"/>

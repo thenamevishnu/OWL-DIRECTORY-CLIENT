@@ -17,6 +17,10 @@
     --breakpoint-2xl: 1536px;
 }
 
+.scroll-none::-webkit-scrollbar{
+    display: none;
+}
+
 body{
     font-family: "Andika", sans-serif;
     background-position: center;
