@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { FaSearch } from "react-icons/fa"
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { ResultPreview } from "../components/ResultPreview";
@@ -30,7 +30,7 @@ export const SearchResults = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [currentPage])
 
-    const getAiResponse = async (message) => {
+    const getAiResponse = useCallback(async (message) => {
         setAiLoading(true)
         try {
             const { data } = await api.post("/url/ai", { message })
@@ -40,7 +40,7 @@ export const SearchResults = () => {
             setAiLoading(false)
             return toaster.error(err.response?.data.message || "Error while getting ai response. Please try again.")
         }
-    }
+    }, [queryParams.get("q")])
 
     const handleSearch = async () => {
         setLoading(true)
@@ -65,7 +65,7 @@ export const SearchResults = () => {
 
     useEffect(() => {
         handleSearch()
-    }, [currentPage, queryParams.get("q")])
+    }, [currentPage])
 
     const handleSubmit = () => {
         if (query.trim() == "") {
