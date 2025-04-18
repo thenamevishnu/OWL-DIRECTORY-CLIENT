@@ -16,7 +16,7 @@ export const ResultPreview = ({ result }) => {
         }, 300);
     }
 
-    return <div className="bg-secondary/20 backdrop-blur-xl rounded p-2">
+    return <div className="bg-secondary rounded p-2">
         <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
                 <div className="shrink-0 w-[35px] h-[35px]">

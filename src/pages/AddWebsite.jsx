@@ -88,7 +88,7 @@ export const AddWebsite = () => {
                     <button onClick={() => setSiteData(null)} className="flex w-full justify-center cursor-pointer items-center gap-1 border border-dim p-1 px-2 rounded"><MdRemoveCircle /> Remove</button>
                 </div>
             }
-            <div className="mt-8 p-2 bg-secondary/40 rounded backdrop-blur-xl">
+            <div className="mt-8 p-2 bg-secondary">
                 <p>Before adding a website, make sure you added the meta tags correctly.</p>
                 <p className="my-3">Place this meta tag in your head section:</p>
                 <p className="text-nowrap font-mono overflow-scroll w-full">{`<meta name="owl-directory" content='${meta_code}'>`}</p>

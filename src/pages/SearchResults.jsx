@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from "react-router";
 import { toaster } from "../Lib/alert";
 import { api } from "../axios";
 import { Loading } from "../components/Loading";
-import { SearchSuggestions } from "../components/SearchSuggestions";
 import { MdTimer } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { AiResponse } from "../components/AiResponse";
@@ -65,7 +64,7 @@ export const SearchResults = () => {
 
     useEffect(() => {
         handleSearch()
-    }, [currentPage])
+    }, [currentPage, queryParams.get("q")])
 
     const handleSubmit = () => {
         if (query.trim() == "") {
@@ -80,9 +79,6 @@ export const SearchResults = () => {
                 <div>
                     <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
                         <div className="w-full relative flex items-center bg-tertiary rounded-md">
-                            <section className="absolute z-10 top-11 left-0 w-full">
-                                <SearchSuggestions results={results} query={query} onSelect={(item) => setQuery(item.query)}/>
-                            </section>
                             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none" />
                             <button className="p-2 text-dim cursor-pointer"><FaSearch /></button>
                         </div>
@@ -118,8 +114,8 @@ export const SearchResults = () => {
                 </div>
                 {
                     <div className="flex justify-center gap-3 mt-4">
-                        {!isLoading && results?.is_previous_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage - 1}`)} className="p-2 bg-secondary/20 backdrop-blur-xl px-4 cursor-pointer rounded font-bold"><GrPrevious /></button>}
-                        {!isLoading && results?.is_next_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage + 1}`)} className="p-2 bg-secondary/20 backdrop-blur-xl px-4 cursor-pointer rounded font-bold"><GrNext /></button>}
+                        {!isLoading && results?.is_previous_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage - 1}`)} className="p-2 bg-secondary px-4 cursor-pointer rounded font-bold"><GrPrevious /></button>}
+                        {!isLoading && results?.is_next_available && <button onClick={() => redirect(`/search?q=${query}&page=${currentPage + 1}`)} className="p-2 bg-secondary px-4 cursor-pointer rounded font-bold"><GrNext /></button>}
                     </div>
                 }
             </div>

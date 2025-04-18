@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { FaSearch, FaStar } from "react-icons/fa"
+import { FaXmark } from "react-icons/fa6"
 import { LuSlidersHorizontal } from "react-icons/lu"
 import { MdAdsClick, MdOutlineFeedback } from "react-icons/md"
 import { Header } from "../components/Header"
 import { useNavigate } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { SitesList } from "../components/SitesList"
-import { SearchSuggestions } from "../components/SearchSuggestions"
 import { toaster } from "../Lib/alert"
 import { setTheme } from "../Redux/slices/theme.slice"
 
@@ -23,9 +23,12 @@ const FixedBar = () => {
 
 
     return <div className="flex z-[11] items-center gap-2 fixed bottom-3 right-3">
-        <section className={`${isOpen.customize ? "h-[calc(100%-0.5rem)]  py-2":"h-0"} scroll-none duration-200 ease-linear max-w-[300px] overflow-y-scroll rounded backdrop-blur-xl bg-secondary/20 fixed bottom-1 right-1`}>
-            <div className="flex p-2 flex-col gap-4 pb-12 rounded">
-                <div className="sticky -top-10">
+        <section className={`${isOpen.customize ? "h-[calc(100%-0.5rem)]":"h-0"} scroll-none duration-200 ease-linear max-w-[300px] overflow-y-scroll rounded bg-secondary fixed bottom-1 right-1`}>
+            <div className="flex px-2 flex-col gap-4 rounded">
+                <div className="sticky top-0 bg-secondary">
+                <div className="absolute top-2 right-0 text-light z-1 cursor-pointer" onClick={() => setIsOpen(prev => ({...prev, customize: false}))}>
+                    <FaXmark />
+                </div>
                     <h3>Preview:</h3>
                     <div className="w-full relative h-44 rounded mt-2" >
                         <img src={theme.background.replace("url(", "").replace(")", "")} alt="bg" className="object-fill rounded aspect-video"/>
@@ -53,9 +56,9 @@ const FixedBar = () => {
                 </div>
                 <div className="">
                     <h3>Backgrounds:</h3>
-                    <div className="flex gap-2 flex-wrap mt-2">
+                    <div className="grid grid-cols-2 gap-2 flex-wrap mt-2">
                         {
-                            backgroundImages.map(background => <div onClick={() => { dispatch(setTheme({ background: "../" + background })) }} key={background} className="w-30 rounded cursor-pointer">
+                            backgroundImages.map(background => <div onClick={() => { dispatch(setTheme({ background: "../" + background })) }} key={background} className="rounded w-full cursor-pointer">
                                 <img src={"../"+background} alt="bg" className="object-fill h-full w-full aspect-video"/>
                             </div>)
                         }
@@ -63,8 +66,8 @@ const FixedBar = () => {
                 </div>
             </div>
         </section>
-        <button onClick={() => setIsOpen(prev => ({...prev, customize: !prev.customize}))} className="flex gap-1 cursor-pointer bg-secondary/20 backdrop-blur-xl items-center text-sm p-1 px-2 rounded"><LuSlidersHorizontal />Customize</button>
-        <button className="p-1 px-2 cursor-pointer bg-secondary/20 backdrop-blur-xl rounded text-xl"><MdOutlineFeedback/></button>
+        <button onClick={() => setIsOpen(prev => ({...prev, customize: true}))} className="flex gap-1 cursor-pointer bg-secondary items-center text-sm p-1 px-2 rounded"><LuSlidersHorizontal />Customize</button>
+        <button className="p-1 px-2 cursor-pointer bg-secondary rounded text-xl"><MdOutlineFeedback/></button>
     </div>
 }
 
@@ -99,9 +102,6 @@ export const LandingPage = () => {
             </div>
             <form className="w-full mb-8" onSubmit={handleSearch}>
                 <div className="w-full flex items-center bg-tertiary rounded-md relative">
-                    <section className="absolute z-10 top-11 left-0 min-w-1/2 max-w-full">
-                        <SearchSuggestions query={query} onSelect={(item) => setQuery(item.query)}/>
-                    </section>
                     <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the web using text or url..." className="w-full p-2 outline-none" />
                     <button className="p-2 cursor-pointer"><FaSearch/></button>
                 </div>

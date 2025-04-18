@@ -88,14 +88,14 @@ export const Header = ({ isMenuOpen, setIsMenuOpen, setIsOpen, isOpen }) => {
         <div className="relative group">
             <MdInfoOutline size={20} className="cursor-pointer" onClick={() => setIsOpen(isOpen => ({...isOpen, info: !isOpen.info}))} />
             <div className={`fixed duration-300  overflow-hidden top-6 left-6 max-w-[400px] ${isOpen.info ? "w-full h-96 pe-12" : "h-0 w-0"} z-[10]`}>
-                <div className="bg-secondary/20 backdrop-blur-xl rounded p-2 text-xs"><p><span className="font-bold">Owl Directory</span> is a free web app that lets you list and showcase your websites with ease. Whether you're a developer, business owner, or blogger, you can add your site to our growing directory and reach a wider audience—all at no cost. Simple, fast, and open to everyone!</p></div>
+                <div className="bg-secondary rounded p-2 text-xs"><p><span className="font-bold">Owl Directory</span> is a free web app that lets you list and showcase your websites with ease. Whether you're a developer, business owner, or blogger, you can add your site to our growing directory and reach a wider audience—all at no cost. Simple, fast, and open to everyone!</p></div>
             </div>
         </div>   
         <div className="flex items-center gap-5">
             <div className="font-secondary text-xs flex items-center gap-1">{battery.is_charging && <BsLightningCharge />} {battery.level}%</div>
             <CgMenuRight onClick={() => setIsMenuOpen(true)} size={20} className="cursor-pointer" />
         </div>
-        <ul onClick={() => setIsMenuOpen(true)} className={`fixed flex z-1 text-nowrap justify-center flex-col gap-1 bg-[#333]/20 backdrop-blur-xl overflow-hidden rounded right-1 top-1 ease-linear duration-200 ${isMenuOpen ? "w-[200px] p-2" : "w-0 py-2 px-0"}`}>
+        <ul onClick={() => setIsMenuOpen(true)} className={`fixed flex z-1 text-nowrap justify-center flex-col gap-1 bg-secondary overflow-hidden rounded right-1 top-1 ease-linear duration-200 ${isMenuOpen ? "w-[200px] p-2" : "w-0 py-2 px-0"}`}>
             <li className="flex items-center w-full gap-2 p-1 cursor-pointer hover:bg-white/5 duration-300 rounded">
                 {
                     email ? <div onClick={handleLogout} className="flex items-center gap-2 w-full">
