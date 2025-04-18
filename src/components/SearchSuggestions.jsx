@@ -13,12 +13,10 @@ export const SearchSuggestions = ({query, onSelect, results}) => {
                 }
             })
             if(status === 200) {
-                console.log(data);
                 return setSuggestions(data)
             }
             setSuggestions([])
         } catch (err) {
-            console.log(err);
             setSuggestions([])   
         }
     }

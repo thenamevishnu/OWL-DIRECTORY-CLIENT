@@ -9,6 +9,7 @@ import { Loading } from "../components/Loading";
 import { SearchSuggestions } from "../components/SearchSuggestions";
 import { MdTimer } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { AiResponse } from "../components/AiResponse";
 
 const limit = 20
 
@@ -18,6 +19,8 @@ export const SearchResults = () => {
     const theme = useSelector(state => state.theme)
     const queryParams = new URLSearchParams(location.search)
     const [query, setQuery] = useState(queryParams.get("q") || "")
+    const [aiLoading, setAiLoading] = useState(false)
+    const [aiResponse, setAiResponse] = useState("")
     const [results, setResults] = useState({ time: 0, results: [], total_results: 0, is_previous_available: false, is_next_available: false })
     const [isLoading, setLoading] = useState(false)
     const currentPage = useMemo(() => queryParams.get("page") ? isNaN(queryParams.get("page")) ? 1 : parseInt(queryParams.get("page")) : 1, [queryParams])
@@ -27,10 +30,23 @@ export const SearchResults = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [currentPage])
 
+    const getAiResponse = async (message) => {
+        setAiLoading(true)
+        try {
+            const { data } = await api.post("/url/ai", { message })
+            setAiResponse(data)
+            setAiLoading(false)
+        } catch (err) {
+            setAiLoading(false)
+            return toaster.error(err.response?.data.message || "Error while getting ai response. Please try again.")
+        }
+    }
+
     const handleSearch = async () => {
         setLoading(true)
         try {
             const startTime = new Date().getTime()
+            getAiResponse(query)
             const { data } = await api.get("/url/search", {
                 params: {
                     q: query,
@@ -82,6 +98,12 @@ export const SearchResults = () => {
                     </div>
                 }
                 <div className="flex flex-col gap-2">
+                    {
+                        aiLoading && <div className="my-3 flex items-center gap-3 justify-center"><div className="w-5 h-5 border-t-transparent border-b-transparent rounded-full border-4 animate-spin border-light"></div>AI is thinking...</div>
+                    }
+                    {
+                        !aiLoading && aiResponse?.candidates?.[0]?.content?.parts?.[0]?.text && <AiResponse text={aiResponse?.candidates?.[0]?.content?.parts?.[0]?.text} />
+                    }
                     {
                         isLoading && <div className="flex justify-center mt-4"><Loading /></div>
                     }
