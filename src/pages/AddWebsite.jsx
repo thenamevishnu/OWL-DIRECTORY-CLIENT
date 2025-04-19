@@ -25,7 +25,7 @@ export const AddWebsite = () => {
         }
         try {
             setFetching(true)
-            const { data } = await api.get("/url/fetch", {
+            const { data } = await api.get("/website/fetch", {
                 params: {
                     url: query
                 }
@@ -58,7 +58,7 @@ export const AddWebsite = () => {
             return toaster.error("Please add a website first")
         }
         try {
-            const { data } = await api.post("/url/add", siteData)
+            const { data } = await api.post("/website/add", siteData)
             setSiteData(null)
             return toaster.success(data.message)
         } catch (error) {

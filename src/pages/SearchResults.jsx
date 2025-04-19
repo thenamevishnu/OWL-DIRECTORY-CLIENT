@@ -9,6 +9,7 @@ import { Loading } from "../components/Loading";
 import { MdTimer } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { AiResponse } from "../components/AiResponse";
+import { Logo } from "../components/Logo";
 
 const limit = 20
 
@@ -32,7 +33,7 @@ export const SearchResults = () => {
     const getAiResponse = useCallback(async (message) => {
         setAiLoading(true)
         try {
-            const { data } = await api.post("/url/ai", { message })
+            const { data } = await api.post("/website/ai", { message })
             setAiResponse(data)
             setAiLoading(false)
         } catch (err) {
@@ -46,7 +47,7 @@ export const SearchResults = () => {
         try {
             const startTime = new Date().getTime()
             getAiResponse(query)
-            const { data } = await api.get("/url/search", {
+            const { data } = await api.get("/website/search", {
                 params: {
                     q: query,
                     page: currentPage,
@@ -76,6 +77,9 @@ export const SearchResults = () => {
     return <div className="flex justify-center p-2 md:p-5">
         <div className="w-full grid grid-cols-12 justify-center max-w-[1400px]">
             <div className="col-span-12 sm:col-span-11 md:col-span-10 lg:col-span-9 xl:col-span-8 2xl:col-span-7">
+                <div className="mb-3 flex justify-center">
+                    <Logo />
+                </div>
                 <div>
                     <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
                         <div className="w-full relative flex items-center bg-tertiary rounded-md">

@@ -30,6 +30,11 @@ body{
     background-attachment: fixed;
 }
 
+::placeholder{
+    color: var(--color-dim);
+    opacity: 1;
+}
+
 body::-webkit-scrollbar{
     background: url(../background.jpg) no-repeat right fixed;
 }
