@@ -17,8 +17,7 @@ export const Routes = () => {
         const body = document.body.style
         body.color = theme.color
         body.backgroundImage = theme.background
-        body.fontFamily = theme.font_family
-    }, [theme.color, theme.background, theme.font_family])
+    }, [theme.color, theme.background])
 
     return <BrowserRouter>
         <Routers>
