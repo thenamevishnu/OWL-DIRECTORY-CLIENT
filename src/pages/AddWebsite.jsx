@@ -91,7 +91,7 @@ export const AddWebsite = () => {
             <div className="mt-8 p-2 bg-secondary">
                 <p>Before adding a website, make sure you added the meta tags correctly.</p>
                 <p className="my-3">Place this meta tag in your head section:</p>
-                <p className="text-nowrap font-mono overflow-scroll w-full">{`<meta name="owl-directory" content='${meta_code}'>`}</p>
+                <p className="text-nowrap font-mono overflow-scroll w-full">{`<meta name="netfolio" content='${meta_code}'>`}</p>
             </div>
         </div>
     </div>
